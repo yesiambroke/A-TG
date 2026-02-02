@@ -14,7 +14,7 @@ const { TERMS_OF_SERVICE, PRIVACY_NOTICE, SECURITY_TIPS } = require('./utils/tex
 // Initialize bot
 const bot = new TelegramBot(config.telegram.token, { polling: true });
 
-console.log('🤖 ACE TRADE Bot starting...');
+console.log('🤖 A-TRADE Bot starting...');
 
 // ============================================
 // COMMAND: /start [referral_code]
@@ -48,15 +48,15 @@ const showWelcomeAndTerms = async (msg, referralCode = null) => {
   const chatId = msg.chat.id;
 
   // Send welcome message with referral info if applicable
-  let welcomeMessage = `🎴 **Welcome to ACE TRADE!**\n\n` +
+  let welcomeMessage = `🎴 **Welcome to A-TRADE!**\n\n` +
     `Trade PumpFun meme coins on Solana with:\n` +
     `• Lightning-fast execution\n` +
     `• Multi-wallet management\n` +
-    `• 0.5% trading fees\n` +
-    `• Self-hosted private keys (coming soon)\n\n`;
+    `• As low as 0.22% trading fees for PRO users\n` +
+    `• Non-custodial wallet\n\n`;
 
   if (referralCode) {
-    welcomeMessage += `🎁 **Special Offer:** You've been invited! Get **25% off** your Pro membership upgrade!\n\n`;
+    welcomeMessage += `🎁 **Special Offer:** You've been invited! Get **Special Discount** on your Pro membership upgrade!\n\n`;
   }
 
   welcomeMessage += `Let's get you started! 🚀`;
@@ -93,7 +93,7 @@ bot.on('callback_query', async (query) => {
 
   try {
     if (data.startsWith('agree_tos')) {
-      await bot.answerCallbackQuery(query.id, { text: '✅ Registering your account...' }).catch(() => {});
+      await bot.answerCallbackQuery(query.id, { text: '✅ Registering your account...' }).catch(() => { });
 
       // Extract referral code if present (format: agree_tos:REFCODE)
       const referralCode = data.includes(':') ? data.split(':')[1] : null;
@@ -117,9 +117,9 @@ bot.on('callback_query', async (query) => {
 
       // Show main menu
       await showMainMenu(query.message);
-    } 
+    }
     else if (data === 'decline_tos') {
-      await bot.answerCallbackQuery(query.id, { text: '❌ Terms declined' }).catch(() => {});
+      await bot.answerCallbackQuery(query.id, { text: '❌ Terms declined' }).catch(() => { });
       await bot.sendMessage(
         chatId,
         '❌ You must agree to the Terms of Service to use Ace Trade.\n\n' +
@@ -135,61 +135,61 @@ bot.on('callback_query', async (query) => {
     else if (data === 'security') {
       await handleSecurity(query);
     }
-     else if (data === 'help') {
-       await handleHelp(query);
-     }
-     else if (data === 'active_sessions') {
-       await handleActiveSessions(query);
-     }
-      else if (data.startsWith('revoke_session_')) {
-        const sessionId = data.replace('revoke_session_', '');
-        await handleRevokeSession(query, sessionId);
-      }
-      else if (data === 'enable_2fa') {
-        await handleEnable2FA(query);
-      }
-      else if (data === 'disable_2fa') {
-        await handleDisable2FA(query);
-      }
-      else if (data === 'recovery_key') {
-        await handleRecoveryKey(query);
-      }
-      else if (data === 'security_dashboard') {
-        await handleSecurityDashboard(query);
-      }
-      else if (data === 'my_account') {
-        await handleMyAccount(query);
-      }
-      else if (data === 'view_sessions') {
-        await handleActiveSessions(query);
-      }
-      else if (data === 'recent_activity') {
-        await handleRecentActivity(query);
-      }
-      else if (data === 'emergency_menu') {
-        await handleEmergencyMenu(query);
-      }
-      else if (data === 'confirm_lockdown') {
-        await handleConfirmLockdown(query);
-      }
-      else if (data === 'cancel_lockdown') {
-        await handleCancelLockdown(query);
-      }
-      else if (data === 'help_security') {
-        await handleHelpSecurity(query);
-      }
-      else if (data === 'help_account') {
-        await handleHelpAccount(query);
-      }
-      else if (data === 'account_menu') {
-        await handleAccountMenu(query);
-      }
-      else if (data === 'report_suspicious') {
-        await handleReportSuspicious(query);
-      }
-      else if (data === 'help_sessions') {
-        await handleHelpSessions(query);
-      }
+    else if (data === 'help') {
+      await handleHelp(query);
+    }
+    else if (data === 'active_sessions') {
+      await handleActiveSessions(query);
+    }
+    else if (data.startsWith('revoke_session_')) {
+      const sessionId = data.replace('revoke_session_', '');
+      await handleRevokeSession(query, sessionId);
+    }
+    else if (data === 'enable_2fa') {
+      await handleEnable2FA(query);
+    }
+    else if (data === 'disable_2fa') {
+      await handleDisable2FA(query);
+    }
+    else if (data === 'recovery_key') {
+      await handleRecoveryKey(query);
+    }
+    else if (data === 'security_dashboard') {
+      await handleSecurityDashboard(query);
+    }
+    else if (data === 'my_account') {
+      await handleMyAccount(query);
+    }
+    else if (data === 'view_sessions') {
+      await handleActiveSessions(query);
+    }
+    else if (data === 'recent_activity') {
+      await handleRecentActivity(query);
+    }
+    else if (data === 'emergency_menu') {
+      await handleEmergencyMenu(query);
+    }
+    else if (data === 'confirm_lockdown') {
+      await handleConfirmLockdown(query);
+    }
+    else if (data === 'cancel_lockdown') {
+      await handleCancelLockdown(query);
+    }
+    else if (data === 'help_security') {
+      await handleHelpSecurity(query);
+    }
+    else if (data === 'help_account') {
+      await handleHelpAccount(query);
+    }
+    else if (data === 'account_menu') {
+      await handleAccountMenu(query);
+    }
+    else if (data === 'report_suspicious') {
+      await handleReportSuspicious(query);
+    }
+    else if (data === 'help_sessions') {
+      await handleHelpSessions(query);
+    }
   } catch (error) {
     console.error('Error in callback query:', error);
     await bot.answerCallbackQuery(query.id, { text: '❌ Error occurred' });
@@ -225,12 +225,12 @@ const showMainMenu = async (msg) => {
 // ============================================
 const handleOpenSession = async (query) => {
   const chatId = query.message.chat.id;
-  
-    await bot.answerCallbackQuery(query.id, { text: '🔄 Generating session...' }).catch(() => {});
+
+  await bot.answerCallbackQuery(query.id, { text: '🔄 Generating session...' }).catch(() => { });
 
   // Get user
   const user = await userService.getUserByTelegramId(chatId);
-  
+
   if (!user) {
     await bot.sendMessage(chatId, '❌ User not found. Please restart with /start');
     return;
@@ -258,14 +258,14 @@ const handleOpenSession = async (query) => {
 
   const keyboard = allowButton
     ? {
-        inline_keyboard: [
-          [{ text: '🚀 Open Trade Terminal', url: loginUrl }],
-          [{ text: '🔙 Back to Menu', callback_data: 'back_menu' }],
-        ],
-      }
+      inline_keyboard: [
+        [{ text: '🚀 Open Trade Terminal', url: loginUrl }],
+        [{ text: '🔙 Back to Menu', callback_data: 'back_menu' }],
+      ],
+    }
     : {
-        inline_keyboard: [[{ text: '🔙 Back to Menu', callback_data: 'back_menu' }]],
-      };
+      inline_keyboard: [[{ text: '🔙 Back to Menu', callback_data: 'back_menu' }]],
+    };
 
   await bot.sendMessage(
     chatId,
@@ -287,8 +287,8 @@ const handleOpenSession = async (query) => {
 // ============================================
 const handleSecurity = async (query) => {
   const chatId = query.message.chat.id;
-  
-    await bot.answerCallbackQuery(query.id, { text: '🔒 Security settings' }).catch(() => {});
+
+  await bot.answerCallbackQuery(query.id, { text: '🔒 Security settings' }).catch(() => { });
 
   await bot.sendMessage(chatId, SECURITY_TIPS, { parse_mode: 'Markdown' });
 
@@ -313,10 +313,10 @@ const handleSecurity = async (query) => {
 // ============================================
 const handleHelp = async (query) => {
   const chatId = query.message.chat.id;
-  
+
   await bot.answerCallbackQuery(query.id, { text: 'ℹ️ Help' });
 
-    const helpText = `❓ *ACE TRADE - Help*
+  const helpText = `❓ *ACE TRADE - Help*
 
 *Getting Started:*
 • Use \`/start\` to access main menu
@@ -346,21 +346,21 @@ const handleHelp = async (query) => {
 
 Website: a-trade.fun`;
 
-   const keyboard = {
-     inline_keyboard: [
-       [
-         { text: '👤 Account Help', callback_data: 'help_account' },
-         { text: '🔐 Security Help', callback_data: 'help_security' }
-       ],
-       [
-         { text: '📱 Sessions Help', callback_data: 'help_sessions' },
-         { text: '🚨 Emergency Help', callback_data: 'help_emergency' }
-       ],
-       [{ text: '🔙 Back to Menu', callback_data: 'back_menu' }],
-     ],
-   };
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { text: '👤 Account Help', callback_data: 'help_account' },
+        { text: '🔐 Security Help', callback_data: 'help_security' }
+      ],
+      [
+        { text: '📱 Sessions Help', callback_data: 'help_sessions' },
+        { text: '🚨 Emergency Help', callback_data: 'help_emergency' }
+      ],
+      [{ text: '🔙 Back to Menu', callback_data: 'back_menu' }],
+    ],
+  };
 
-   await bot.sendMessage(chatId, helpText, { parse_mode: 'Markdown', reply_markup: keyboard });
+  await bot.sendMessage(chatId, helpText, { parse_mode: 'Markdown', reply_markup: keyboard });
 
   await bot.sendMessage(chatId, 'Back to menu?', { reply_markup: keyboard });
 };
@@ -371,7 +371,7 @@ Website: a-trade.fun`;
 const handleActiveSessions = async (query) => {
   const chatId = query.message.chat.id;
 
-  await bot.answerCallbackQuery(query.id, { text: '🔒 Loading active sessions...' }).catch(() => {});
+  await bot.answerCallbackQuery(query.id, { text: '🔒 Loading active sessions...' }).catch(() => { });
 
   try {
     // Get user
@@ -451,7 +451,7 @@ const handleActiveSessions = async (query) => {
 const handleRevokeSession = async (query, sessionId) => {
   const chatId = query.message.chat.id;
 
-  await bot.answerCallbackQuery(query.id, { text: '🔄 Revoking session...' }).catch(() => {});
+  await bot.answerCallbackQuery(query.id, { text: '🔄 Revoking session...' }).catch(() => { });
 
   try {
     // Get user
@@ -500,12 +500,12 @@ const handleRevokeSession = async (query, sessionId) => {
 // ============================================
 bot.on('callback_query', async (query) => {
   if (query.data === 'back_menu') {
-    await bot.answerCallbackQuery(query.id).catch(() => {});
+    await bot.answerCallbackQuery(query.id).catch(() => { });
     await showMainMenu(query.message);
   }
-  
+
   if (query.data === 'upgrade_pro') {
-    await bot.answerCallbackQuery(query.id, { text: '⭐ Upgrade coming soon!' }).catch(() => {});
+    await bot.answerCallbackQuery(query.id, { text: '⭐ Upgrade coming soon!' }).catch(() => { });
     await bot.sendMessage(
       query.message.chat.id,
       '⭐ **PRO Upgrade**\n\n' +
@@ -617,7 +617,7 @@ bot.onText(/\/revoke (.+)/, async (msg, match) => {
 // ============================================
 bot.onText(/\/help/, async (msg) => {
   await handleHelp({ message: msg, id: 'help_command' });
-  await bot.answerCallbackQuery('help_command').catch(() => {});
+  await bot.answerCallbackQuery('help_command').catch(() => { });
 });
 
 // ============================================
