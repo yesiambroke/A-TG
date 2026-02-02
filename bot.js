@@ -1,5 +1,5 @@
 /**
- * ACE TRADE - Telegram Bot Main Logic
+ * A-TRADE - Telegram Bot Main Logic
  * Handles user registration and session generation
  */
 
@@ -122,7 +122,7 @@ bot.on('callback_query', async (query) => {
       await bot.answerCallbackQuery(query.id, { text: '❌ Terms declined' }).catch(() => { });
       await bot.sendMessage(
         chatId,
-        '❌ You must agree to the Terms of Service to use Ace Trade.\n\n' +
+        '❌ You must agree to the Terms of Service to use A-Trade.\n\n' +
         'Send /start again when you\'re ready to continue.'
       );
     }
@@ -214,7 +214,7 @@ const showMainMenu = async (msg) => {
 
   await bot.sendMessage(
     chatId,
-    `🎴 **ACE TRADE - Main Menu**\n\n` +
+    `🎴 **A-TRADE - Main Menu**\n\n` +
     `Choose an option below to continue:`,
     { reply_markup: keyboard, parse_mode: 'Markdown' }
   );
@@ -316,7 +316,7 @@ const handleHelp = async (query) => {
 
   await bot.answerCallbackQuery(query.id, { text: 'ℹ️ Help' });
 
-  const helpText = `❓ *ACE TRADE - Help*
+  const helpText = `❓ *A-TRADE - Help*
 
 *Getting Started:*
 • Use \`/start\` to access main menu
